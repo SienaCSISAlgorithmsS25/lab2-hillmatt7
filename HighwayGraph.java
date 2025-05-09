@@ -221,6 +221,108 @@ public class HighwayGraph
         // print summary of the graph
         System.out.println(g);
 
-	// ADD CODE HERE TO COMPLETE LAB TASKS
+        // ADD CODE HERE TO COMPLETE LAB TASKS
+
+
+        // vertex search function
+        int north = 0;
+        int south = 0;
+        int east = 0;
+        int west = 0;
+        int longest = 0;
+        int shortest = 0;
+
+        // scan vertices
+        for (int i = 1; i < g.vertices.length; i++) {
+            Vertex v = g.vertices[i];
+
+            // compare
+            if (v.point.lat > g.vertices[north].point.lat) {
+                north = i;
+            }
+            if (v.point.lat < g.vertices[south].point.lat) {
+                south = i;
+            }
+            if (v.point.lng > g.vertices[east].point.lng) {
+                east = i;
+            }
+            if (v.point.lng < g.vertices[west].point.lng) {
+                west = i;
+            }
+
+            int len = v.label.length();
+            if (len > g.vertices[longest].label.length()) {
+                longest = i;
+            }
+            if (len < g.vertices[shortest].label.length()) {
+                shortest = i;
+            }
+        }
+
+        // print
+
+        System.out.println("Vertex Search Function: ");
+        System.out.println("Northernmost: " + g.vertices[north].label);
+        System.out.println("Southernmost: " + g.vertices[south].label);
+        System.out.println("Easternmost: " + g.vertices[east].label);
+        System.out.println("Westernmost: " + g.vertices[west].label);
+        System.out.println("Longest label: " + g.vertices[longest].label);
+        System.out.println("Shortest label: " + g.vertices[shortest].label);
+
+
+
+        // basic edge search
+
+        int longestLabel = 0;
+        int shortestLabel = 0;
+        int longestLength = 0;
+        int shortestLength = 0;
+
+        Edge longestLabelEdge   = null;
+        Edge shortestLabelEdge  = null;
+        Edge longestLengthEdge  = null;
+        Edge shortestLengthEdge = null;
+
+        for (Vertex v : g.vertices) {
+            for (Edge e = v.head; e != null; e = e.next) {
+
+                // initialize
+                if (longestLabelEdge == null) {
+                    longestLabelEdge   = e;
+                    shortestLabelEdge  = e;
+                    longestLengthEdge  = e;
+                    shortestLengthEdge = e;
+                }
+
+                // compare
+                if (e.label.length() > longestLabelEdge.label.length()) {
+                    longestLabelEdge = e;
+                }
+
+                if (e.label.length() < shortestLabelEdge.label.length()) {
+                    shortestLabelEdge = e;
+                }
+
+                if (e.length > longestLengthEdge.length) {
+                    longestLengthEdge = e;
+                }
+                if (e.length < shortestLengthEdge.length) {
+                    shortestLengthEdge = e;
+                }
+            }
+        }
+
+        // print
+        System.out.println();
+        System.out.println();
+        System.out.println("Basic Edge Search Function: ");
+        System.out.println("Edge with longest label: " + longestLabelEdge.label);
+        System.out.println("Edge with shortest label: " + shortestLabelEdge.label);
+        System.out.println("Longest edge: " + longestLengthEdge.label);
+        System.out.println("Shortest edge: " + shortestLengthEdge.label);
+
+
+
+
     }
 }
