@@ -287,11 +287,15 @@ public class HighwayGraph
 
         int edgeCount = 0;
 
+        double totalEdgeLength = 0.0;
+
         for (Vertex v : g.vertices) {
             for (Edge e = v.head; e != null; e = e.next) {
                 if (vertexIndex < e.dest) {
         
                     edgeCount++;
+
+                    totalEdgeLength += e.length;
         
                     // initialize
                     if (longestLabelEdge == null) {
@@ -329,8 +333,13 @@ public class HighwayGraph
         System.out.println("Longest edge: " + longestLengthEdge.label);
         System.out.println("Shortest edge: " + shortestLengthEdge.label);
 
+        System.out.println();
         System.out.println("Edges examined: " + edgeCount);
         System.out.println("Total edges: " + g.numEdges);
+
+        System.out.println();
+        System.out.println("Total graph length: " + totalEdgeLength + " miles");
+        System.out.println();
 
 
 
