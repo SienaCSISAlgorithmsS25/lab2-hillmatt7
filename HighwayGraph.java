@@ -283,33 +283,41 @@ public class HighwayGraph
         Edge longestLengthEdge  = null;
         Edge shortestLengthEdge = null;
 
+        int vertexIndex = 0;
+
+        int edgeCount = 0;
+
         for (Vertex v : g.vertices) {
             for (Edge e = v.head; e != null; e = e.next) {
-
-                // initialize
-                if (longestLabelEdge == null) {
-                    longestLabelEdge   = e;
-                    shortestLabelEdge  = e;
-                    longestLengthEdge  = e;
-                    shortestLengthEdge = e;
-                }
-
-                // compare
-                if (e.label.length() > longestLabelEdge.label.length()) {
-                    longestLabelEdge = e;
-                }
-
-                if (e.label.length() < shortestLabelEdge.label.length()) {
-                    shortestLabelEdge = e;
-                }
-
-                if (e.length > longestLengthEdge.length) {
-                    longestLengthEdge = e;
-                }
-                if (e.length < shortestLengthEdge.length) {
-                    shortestLengthEdge = e;
+                if (vertexIndex < e.dest) {
+        
+                    edgeCount++;
+        
+                    // initialize
+                    if (longestLabelEdge == null) {
+                        longestLabelEdge   = e;
+                        shortestLabelEdge  = e;
+                        longestLengthEdge  = e;
+                        shortestLengthEdge = e;
+                    }
+        
+                    // compare
+                    if (e.label.length() > longestLabelEdge.label.length()) {
+                        longestLabelEdge = e;
+                    }
+                    if (e.label.length() < shortestLabelEdge.label.length()) {
+                        shortestLabelEdge = e;
+                    }
+                    if (e.length > longestLengthEdge.length) {
+                        longestLengthEdge = e;
+                    }
+                    if (e.length < shortestLengthEdge.length) {
+                        shortestLengthEdge = e;
+                    }
                 }
             }
+        
+            vertexIndex++;
         }
 
         // print
@@ -320,6 +328,9 @@ public class HighwayGraph
         System.out.println("Edge with shortest label: " + shortestLabelEdge.label);
         System.out.println("Longest edge: " + longestLengthEdge.label);
         System.out.println("Shortest edge: " + shortestLengthEdge.label);
+
+        System.out.println("Edges examined: " + edgeCount);
+        System.out.println("Total edges: " + g.numEdges);
 
 
 
